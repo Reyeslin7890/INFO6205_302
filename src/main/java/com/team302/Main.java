@@ -23,11 +23,11 @@ public class Main {
                             Sudoku.unused++;
                             count++;
                         }
-                Sudoku.index[i * 3 + j] = count;
+                Sudoku.index[i * 3 + j + 1] = count;
             }
 
-        for (int i = 1; i < 9; i++) Sudoku.index[i] += Sudoku.index[i - 1];
-
+        Sudoku.index[0] = 0;
+        for (int i = 1; i < 10; i++) Sudoku.index[i] += Sudoku.index[i - 1];
 
     }
 }
