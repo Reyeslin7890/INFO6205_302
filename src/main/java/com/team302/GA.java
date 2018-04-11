@@ -3,6 +3,7 @@ package com.team302;
 
 import java.util.Collections;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 public class GA {
 
@@ -12,12 +13,29 @@ public class GA {
     }
 
     public void initGeneration() {
-        for (int i = 0; i < 1000; i++) {
+        Random r = new Random();
+        for (int num = 0; num < 10; num++) {
             Sudoku s = new Sudoku();
-            for (int j = 0; j < 9; j++) {
-                Collections.shuffle(Collections.singletonList(Sudoku.codeFrag[1]));
+            int ind = 0;
+            for (int[] frag : Sudoku.codeFrag) {
+                for (int i = 0; i < frag.length; i++) {
+                    int j = r.nextInt(frag.length);
+                    int swap = frag[i];
+                    frag[i] = frag[j];
+                    frag[j] = swap;
+                }
+                for (int aFrag : frag) s.code[ind++] = aFrag;
             }
+            s.fitness();
+            population.insert(s);
         }
+        Sudoku s = population.getMax();
+        System.out.println(s.fitness());
+        for (int[] row : s.codeExpression()) {
+            for (int i : row) System.out.print(i + " ");
+            System.out.println();
+        }
+
 
     }
 

@@ -17,14 +17,7 @@ public class Sudoku {
         int tot = 144;
         int ind = 0;
         int[][] s = Main.skd;
-        for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 3; j++)
-                for (int a = 0; a < 3; a++)
-                    for (int b = 0; b < 3; b++) {
-                        int row = i * 3 + a;
-                        int col = j * 3 + b;
-                        if (s[row][col] == 0) s[row][col] = code[ind++];
-                    }
+        s = codeExpression();
         for (int i = 0; i < 9; i++) {
             boolean[] availrow = new boolean[10];
             boolean[] availcol = new boolean[10];
@@ -37,5 +30,19 @@ public class Sudoku {
         }
         fitness = tot;
         return fitness;
+    }
+
+    public int[][] codeExpression() {
+        int[][] s = Main.skd;
+        int ind = 0;
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                for (int a = 0; a < 3; a++)
+                    for (int b = 0; b < 3; b++) {
+                        int row = i * 3 + a;
+                        int col = j * 3 + b;
+                        if (s[row][col] == 0) s[row][col] = code[ind++];
+                    }
+        return s;
     }
 }
