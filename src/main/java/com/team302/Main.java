@@ -40,7 +40,6 @@ public class Main {
 
     public static void main(String[] args) {
         init();
-        GA ga= new GA();
-        ga.initGeneration();
+        new GA().go();
     }
 }

@@ -13,12 +13,13 @@ public class Sudoku {
         fitness = -1;
     }
 
+    public int getFitness() {
+        return fitness;
+    }
+
     public int fitness() {
-        if (fitness > -1) return fitness;
         int tot = 144;
-        int ind = 0;
-        int[][] s = Main.skd;
-        s = codeExpression();
+        int[][] s = codeExpression();
         for (int i = 0; i < 9; i++) {
             boolean[] availrow = new boolean[10];
             boolean[] availcol = new boolean[10];
@@ -47,32 +48,27 @@ public class Sudoku {
         return s;
     }
 
-    public int score(){
-        int fitness = fitness();
-        if(fitness == 0){
+    public int score() {
+        if (fitness == 0) {
             return 0;
         }
         int[][] s = codeExpression();
-        for(int i = 0; i < 9; i++){
-            for(int j = 0; j < 9; j++){
-                if(Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 4){
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 4) {
                     score = score + 6 * s[i][j];
-                }
-                else if(Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 3){
+                } else if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 3) {
                     score = score + 7 * s[i][j];
-                }
-                else if(Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 2){
+                } else if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 2) {
                     score = score + 8 * s[i][j];
-                }
-                else if(Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 1){
+                } else if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 1) {
                     score = score + 9 * s[i][j];
-                }
-                else {
+                } else {
                     score = score + 10 * s[i][j];
                 }
             }
         }
 
-        return  score;
+        return score;
     }
 }

@@ -55,7 +55,7 @@ public class MaxPQ{
     }
 
     private Boolean less(int i, int j){
-        if(pq.get(i).fitness() < pq.get(j).fitness()) return true;
+        if(pq.get(i).getFitness() < pq.get(j).getFitness()) return true;
         else return false;
     }
     private void exch(int i, int j){
