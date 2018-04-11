@@ -13,7 +13,7 @@ public class Main {
                     {2, 0, 1, 0, 6, 0, 8, 0, 4},
                     {0, 8, 0, 5, 0, 4, 0, 1, 2}};
 
-    public static void main(String[] args) {
+    public static void init() {
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++) {
                 int count = 0;
@@ -28,6 +28,9 @@ public class Main {
 
         Sudoku.index[0] = 0;
         for (int i = 1; i < 10; i++) Sudoku.index[i] += Sudoku.index[i - 1];
+    }
 
+    public static void main(String[] args) {
+        init();
     }
 }
