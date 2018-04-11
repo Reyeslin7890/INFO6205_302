@@ -14,7 +14,7 @@ public class GA {
 
     public void initGeneration() {
         Random r = new Random();
-        for (int num = 0; num < 10; num++) {
+        for (int num = 0; num < 100; num++) {
             Sudoku s = new Sudoku();
             int ind = 0;
             for (int[] frag : Sudoku.codeFrag) {

@@ -3,6 +3,7 @@ package com.team302;
 public class Sudoku {
     public int[] code;
     private int fitness;
+    private int score = 0;
     public static int[][] codeFrag = new int[9][];
     public static int unused = 0;
     public static int[] index = new int[10];
@@ -44,5 +45,34 @@ public class Sudoku {
                         if (s[row][col] == 0) s[row][col] = code[ind++];
                     }
         return s;
+    }
+
+    public int score(){
+        int fitness = fitness();
+        if(fitness == 0){
+            return 0;
+        }
+        int[][] s = codeExpression();
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                if(Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 4){
+                    score = score + 6 * s[i][j];
+                }
+                else if(Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 3){
+                    score = score + 7 * s[i][j];
+                }
+                else if(Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 2){
+                    score = score + 8 * s[i][j];
+                }
+                else if(Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 1){
+                    score = score + 9 * s[i][j];
+                }
+                else {
+                    score = score + 10 * s[i][j];
+                }
+            }
+        }
+
+        return  score;
     }
 }
