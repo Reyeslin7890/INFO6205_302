@@ -8,7 +8,7 @@ public class Sudoku {
     public static int unused = 0;
     public static int[] index = new int[10];
 
-    public Sudoku() {
+    Sudoku() {
         code = new int[unused];
         fitness = -1;
     }

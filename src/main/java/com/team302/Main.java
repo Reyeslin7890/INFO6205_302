@@ -1,7 +1,5 @@
 package com.team302;
 
-import java.util.Collections;
-
 public class Main {
 
     public static final int[][] skd =
@@ -15,7 +13,7 @@ public class Main {
                     {2, 0, 1, 0, 6, 0, 8, 0, 4},
                     {0, 8, 0, 5, 0, 4, 0, 1, 2}};
 
-    public static void init() {
+    private static void init() {
         Sudoku.index[0] = 0;
         boolean[] avail;
         for (int i = 0; i < 3; i++)

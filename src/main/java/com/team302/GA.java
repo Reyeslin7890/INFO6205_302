@@ -1,24 +1,21 @@
 package com.team302;
 
-
-import java.util.Collections;
-import java.util.PriorityQueue;
 import java.util.Random;
 
 public class GA {
 
     private final static int initPopulation = 100000;
     private final static int generation = 100;
-    private static double fitnessRate = 0.1;
-    private static double mutationRate = 0.5;
+    private final static double fitnessRate = 0.1;
+    private final static double mutationRate = 0.5;
 
 
-    public MaxPQ population = new MaxPQ();
+    private MaxPQ population = new MaxPQ();
 
-    public GA() {
+    GA() {
     }
 
-    public void initGeneration() {
+    private void initGeneration() {
         Random r = new Random();
         for (int num = 0; num < initPopulation; num++) {
             Sudoku s = new Sudoku();
@@ -39,10 +36,10 @@ public class GA {
     }
 
 
-    public void crossover() {
+    private void crossover() {
     }
 
-    public void mutation() {
+    private void mutation() {
         int mutationNum = (int) Math.round(mutationRate * population.N);
         Random r = new Random();
         while (mutationNum-- > 0) {
@@ -59,7 +56,7 @@ public class GA {
         }
     }
 
-    public int result() {
+    private int result() {
         int result = 0;
         return result;
     }

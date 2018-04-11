@@ -9,7 +9,7 @@ public class MaxPQ{
     public ArrayList<Sudoku> pq = new ArrayList<Sudoku>();
     public int N = 0;
 
-    public MaxPQ() {
+     MaxPQ() {
         pq.add(new Sudoku());
     }
 
