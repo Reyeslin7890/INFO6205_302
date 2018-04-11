@@ -16,8 +16,8 @@ public class MaxPQ{
         return N==0;
     }
     public void insert(Sudoku x){
-        pq.set(++N, x);
-        swim(N);
+        pq.add(x);
+        swim(++N);
     }
 
     public Sudoku delMax(){
