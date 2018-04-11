@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 
 public class GA {
 
-    public MaxPQ<Sudoku> population = new MaxPQ<Sudoku>();
+    public MaxPQ population = new MaxPQ();
 
     public GA() {
     }
@@ -32,7 +32,7 @@ public class GA {
         return result;
     }
 
-    public MaxPQ<Sudoku> go() {
+    public MaxPQ go() {
         return population;
     }
 

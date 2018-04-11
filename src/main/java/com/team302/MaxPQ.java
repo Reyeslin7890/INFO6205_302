@@ -1,5 +1,7 @@
 package com.team302;
 
+import sun.security.x509.SubjectAlternativeNameExtension;
+
 import java.util.ArrayList;
 
 public class MaxPQ{
@@ -13,18 +15,43 @@ public class MaxPQ{
     public boolean isEmpty(){
         return N==0;
     }
-    public void insert(Sudoku sudoku){
-
+    public void insert(Sudoku x){
+        pq.set(++N, x);
+        swim(N);
     }
 
     public Sudoku delMax(){
-        return pq.get(1);
+        Sudoku max = pq.get(1);
+        exch(1, N--);
+        sink(1);
+        pq.set(N+1, null);
+        return max;
     }
 
-    private void swim(){}
-    private void sink(){}
+    private void swim(int k){
+        while(k > 1 && less(k/2, k)){
+            exch(k,k/2);
+            k = k/2;
+        }
+    }
+
+    private void sink(int k){
+        while(2*k <= N){
+            int j = 2*k;
+            if(j < N && less(j, j+1)){
+                j++;
+            }
+            if(!less(k,j)){
+                break;
+            }
+            exch(k,j);
+            k = j;
+        }
+    }
+
     private Boolean less(int i, int j){
-        return true;
+        if(pq.get(i).fitness() < pq.get(j).fitness()) return true;
+        else return false;
     }
     private void exch(int i, int j){
         Sudoku t = pq.get(i);
