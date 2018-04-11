@@ -17,7 +17,7 @@ public class MaxPQ<Sudoku> {
 
     }
 
-    public Sudoku delMax(){}
+    public Sudoku delMax(){ return null;}
 
     private void swim(){}
 }

@@ -1,5 +1,7 @@
 package com.team302;
 
+import java.util.Collections;
+
 public class Main {
 
     public static final int[][] skd =
@@ -38,10 +40,5 @@ public class Main {
 
     public static void main(String[] args) {
         init();
-        for (int[] i : Sudoku.codeFrag) {
-            for (int j : i) System.out.print(j + " ");
-            System.out.println();
-        }
-        for (int i : Sudoku.index) System.out.print(i+" ");
     }
 }
