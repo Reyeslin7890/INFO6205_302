@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class MaxPQ{
 
     public ArrayList<Sudoku> pq = new ArrayList<Sudoku>();
-    public int N;
+    public int N = 0;
 
     public MaxPQ() {
     }
@@ -26,6 +26,10 @@ public class MaxPQ{
         sink(1);
         pq.set(N+1, null);
         return max;
+    }
+
+    public Sudoku getMax(){
+        return pq.get(1);
     }
 
     private void swim(int k){
