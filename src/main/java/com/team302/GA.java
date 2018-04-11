@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class GA {
 
-    private final static int initPopulation = 10;
-    private final static int generation = 10;
+    private final static int initPopulation = 1000;
+    private final static int generation = 100;
     private final static double fitnessRate = 0.1;
-    private final static double mutationRate = 0.1;
+    private final static double mutationRate = 0.3;
 
 
     private MaxPQ population = new MaxPQ();
@@ -136,17 +136,19 @@ public class GA {
 
     private void select() {
         MaxPQ nextGen = new MaxPQ();
-        int aliveNum = Math.min(10000,population.N);//(int) Math.round(population.N * fitnessRate);
-        while (aliveNum-- > 0)
+        int aliveNum = Math.min((int) Math.round(population.N * fitnessRate),10000);
+        while (aliveNum-- > 0) {
+            //System.out.print(population.getMax().score());
             nextGen.insert(population.delMax());
+        }
         population = nextGen;
     }
 
     private void printMax() {
         Sudoku s = population.getMax();
-        System.out.println(s.fitness());
+        System.out.println(s.fitness()+" "+s.score());
         for (int[] row : s.codeExpression()) {
-            for (int i : row) System.out.print(i + " ");
+            for (int i : row) System.out.print(i);
             System.out.println();
         }
     }
@@ -155,16 +157,17 @@ public class GA {
     public void go() {
         initGeneration();
         int curgeneration = 0;
-        printMax();
-        while (population.getMax().getFitness() < 144 || curgeneration++ > generation) {
+        //printMax();
+        while (curgeneration++ < generation) {
             int k = population.N;
-            //System.out.println("A:"+population.N);
+            System.out.print(curgeneration+" ");
+            //System.out.println("A:" + population.N);
             for (int i = 0; i < k * Math.log(k); i++) crossover();
-            //System.out.println("B:"+population.N);
+            //System.out.println("B:" + population.N);
             mutation();
-            //System.out.println("C:"+population.N);
+            //System.out.println("C:" + population.N);
             select();
-            //System.out.println("D:"+population.N);
+            //System.out.println("D:" + population.N);
             printMax();
         }
     }

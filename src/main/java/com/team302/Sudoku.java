@@ -20,14 +20,15 @@ public class Sudoku {
     public int fitness() {
         int tot = 144;
         int[][] s = codeExpression();
+
         for (int i = 0; i < 9; i++) {
             boolean[] availrow = new boolean[10];
             boolean[] availcol = new boolean[10];
             for (int j = 0; j < 9; j++) {
                 if (availrow[s[i][j]]) tot--;
                 else availrow[s[i][j]] = true;
-                if (availcol[s[i][j]]) tot--;
-                else availcol[s[i][j]] = true;
+                if (availcol[s[j][i]]) tot--;
+                else availcol[s[j][i]] = true;
             }
         }
         fitness = tot;
@@ -35,7 +36,11 @@ public class Sudoku {
     }
 
     public int[][] codeExpression() {
-        int[][] s = Main.skd;
+        int[][] s = new int[9][9];
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++)
+                s[i][j] = Main.skd[i][j];
+
         int ind = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -49,10 +54,11 @@ public class Sudoku {
     }
 
     public int score() {
-        if (fitness == 0) {
+        if (fitness < 144) {
             return 0;
         }
         int[][] s = codeExpression();
+        score = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 4) {
