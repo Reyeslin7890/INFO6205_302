@@ -10,6 +10,7 @@ public class MaxPQ{
     public int N = 0;
 
     public MaxPQ() {
+        pq.add(new Sudoku());
     }
 
     public boolean isEmpty(){
