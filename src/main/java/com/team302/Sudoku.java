@@ -10,13 +10,25 @@ public class Sudoku {
     public static int unused = 0;
     public static int[] index = new int[10];
 
-    Sudoku() {
+    public Sudoku() {
         code = new int[unused];
         fitness = -1;
     }
 
+    public void setFitness(int fitness) {
+        this.fitness = fitness;
+    }
+
     public int getFitness() {
         return fitness;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public int fitness() {

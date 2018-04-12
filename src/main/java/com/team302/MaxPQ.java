@@ -10,7 +10,7 @@ public class MaxPQ {
     public ArrayList<Long> hash = new ArrayList<Long>();
     public int N = 0;
 
-    MaxPQ() {
+    public MaxPQ() {
         pq.add(new Sudoku());
     }
 
