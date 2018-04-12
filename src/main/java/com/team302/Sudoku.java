@@ -82,15 +82,15 @@ public class Sudoku {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 4) {
-                    score = score + 6 * s[i][j];
+                    score = score + 1 * s[i][j];
                 } else if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 3) {
-                    score = score + 7 * s[i][j];
+                    score = score + 3 * s[i][j];
                 } else if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 2) {
-                    score = score + 8 * s[i][j];
+                    score = score + 10* s[i][j];
                 } else if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 1) {
-                    score = score + 9 * s[i][j];
+                    score = score + 30 * s[i][j];
                 } else {
-                    score = score + 10 * s[i][j];
+                    score = score + 50 * s[i][j];
                 }
             }
         }

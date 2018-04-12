@@ -1,5 +1,7 @@
 package com.team302;
 
+import UI.Chart;
+
 import java.util.Random;
 
 public class GA {
@@ -15,7 +17,10 @@ public class GA {
     public MaxPQ population = new MaxPQ();
     public MaxPQ nextGeneration = new MaxPQ();
 
-    public GA() {
+    public Chart chart;
+
+    public GA(Chart chart) {
+        this.chart = chart;
     }
 
     public void initGeneration() {
@@ -135,7 +140,7 @@ public class GA {
 
     public void printMax(int curgeneration) {
         Sudoku s = population.getMax();
-        System.out.println("Generation: " + curgeneration + " Population: " + population.N + " Score: " + s.score());
+        System.out.println("Generation: " + curgeneration + " Population: " + population.N + "Fitness: " + s.fitness() + " Score: " + s.score());
         for (int[] row : s.codeExpression()) {
             System.out.print("      ");
             for (int i : row) System.out.print(i);
@@ -167,9 +172,12 @@ public class GA {
             double fitnessRate = r.nextDouble() * (fitnessRateUpperBound - fitnessRateLowerBound) + fitnessRateLowerBound;
             select(fitnessRate);
             //print
-            //printMax(curgeneration);
+            printMax(curgeneration);
+
+            Sudoku s = population.getMax();
+            chart.refresh(curgeneration,s.fitness(),s.score());
         }
-        printMax(curgeneration);
+        //printMax(curgeneration);
     }
 
 }
