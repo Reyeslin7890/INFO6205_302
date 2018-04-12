@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Sudoku {
     public int[] code;
-    private int fitness;
+    private int fitness = -1;
     private int score = 0;
     public static int[][] codeFrag = new int[9][];
     public static int unused = 0;
@@ -12,7 +12,6 @@ public class Sudoku {
 
     public Sudoku() {
         code = new int[unused];
-        fitness = -1;
     }
 
     public void setFitness(int fitness) {
@@ -40,6 +39,7 @@ public class Sudoku {
     }
 
     public int fitness() {
+        if (fitness > -1) return fitness;
         int tot = 144;
         int[][] s = codeExpression();
 
@@ -76,7 +76,7 @@ public class Sudoku {
     }
 
     public int score() {
-        if (fitness < 144) return 0;
+        if (fitness() < 144) return 0;
         if (score > 0) return score;
         int[][] s = codeExpression();
         for (int i = 0; i < 9; i++) {

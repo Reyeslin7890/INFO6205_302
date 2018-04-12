@@ -4,24 +4,26 @@ import java.util.Random;
 
 public class GA {
 
-    private final static int initPopulation = 10000;
+    private final static int initPopulation = 8000;
     private final static int generation = 100;
-    private final static double fitnessRateUpperBound = 0.045;
-    private final static double fitnessRateLowerBound = 0.028;
-    private final static double mutationRate = 0.8;
+    private final static double fitnessRateUpperBound = 0.08;
+    private final static double fitnessRateLowerBound = 0.03;
+    private final static double mutationRate = 0.5;
+    private Random r = new Random();
 
 
-    private MaxPQ population = new MaxPQ();
+    public MaxPQ population = new MaxPQ();
+    public MaxPQ nextGeneration = new MaxPQ();
 
-    GA() {
+    public GA() {
     }
 
-    private void initGeneration() {
-        Random r = new Random();
+    public void initGeneration() {
         for (int num = 0; num < initPopulation; num++) {
             Sudoku s = new Sudoku();
             int ind = 0;
             for (int[] frag : Sudoku.codeFrag) {
+                //Shuffle code fragment
                 for (int i = 0; i < frag.length; i++) {
                     int j = r.nextInt(frag.length);
                     int swap = frag[i];
@@ -37,17 +39,11 @@ public class GA {
     }
 
 
-    private void crossover() {
-        Random r = new Random();
+    public void crossover(int[] code1, int[] code2) {
         // Get 2 gene codes from population to crossover
-        int[] code1 = population.pq.get(r.nextInt(population.N) + 1).code.clone();
-        int[] code2 = population.pq.get(r.nextInt(population.N) + 1).code.clone();
         int[] code3 = new int[Sudoku.unused];
         int[] code4 = new int[Sudoku.unused];
-//        for (int i = 0; i < 7; i++) System.out.print(code1[i]);
-//        System.out.println();
-//        for (int i = 0; i < 7; i++) System.out.print(code2[i]);
-//        System.out.println();
+
         // Randomly generate positions to crossover
         boolean[] cross = new boolean[Sudoku.unused];
         for (int i = 0; i < Sudoku.unused; i++) cross[i] = r.nextBoolean();
@@ -59,11 +55,7 @@ public class GA {
                 code4[i] = code1[i];
             }
 
-//        for (int i = 0; i < 7; i++) System.out.print(code3[i]);
-//        System.out.println();
-//        for (int i = 0; i < 7; i++) System.out.print(code4[i]);
-//        System.out.println();
-
+        // Fix wrong genes
         for (int i = 0; i < 9; i++) {
             int start = Sudoku.index[i];
             int end = Sudoku.index[i + 1];
@@ -103,54 +95,49 @@ public class GA {
 
         }
 
-//        for (int i = 0; i < 7; i++) System.out.print(code3[i]);
-//        System.out.println();
-//        for (int i = 0; i < 7; i++) System.out.print(code4[i]);
-//        System.out.println();System.out.println();
-
         Sudoku s1 = new Sudoku();
         Sudoku s2 = new Sudoku();
         s1.code = code3;
         s2.code = code4;
         s1.fitness();
         s2.fitness();
-        population.insert(s1);
-        population.insert(s2);
+        nextGeneration.insert(s1);
+        nextGeneration.insert(s2);
     }
 
-    private void mutation() {
-        int mutationNum = (int) Math.round(mutationRate * population.N);
-        Random r = new Random();
-        while (mutationNum-- > 0) {
-            Sudoku s = new Sudoku();
-            s.code = population.pq.get(r.nextInt(population.N) + 1).code.clone();
-            int mutFrag = r.nextInt(9);
-            int v = r.nextInt(Sudoku.codeFrag[mutFrag].length) + Sudoku.index[mutFrag];
-            int w = r.nextInt(Sudoku.codeFrag[mutFrag].length) + Sudoku.index[mutFrag];
-            int swap = s.code[v];
-            s.code[v] = s.code[w];
-            s.code[w] = swap;
-            s.fitness();
-            population.insert(s);
+    public void mutation(int[] code) {
+        Sudoku s = new Sudoku();
+        s.code = code.clone();
+        int mutFrag = r.nextInt(9);
+        int v = r.nextInt(Sudoku.codeFrag[mutFrag].length) + Sudoku.index[mutFrag];
+        int w = r.nextInt(Sudoku.codeFrag[mutFrag].length) + Sudoku.index[mutFrag];
+        int swap = s.code[v];
+        s.code[v] = s.code[w];
+        s.code[w] = swap;
+        s.fitness();
+        nextGeneration.insert(s);
+    }
+
+    public void select(double fitnessRate) {
+
+        //Place all population into next generation
+        while (population.N > 0) {
+            nextGeneration.insert(population.delMax());
         }
-    }
 
-    private void select(double fitnessRate) {
-        MaxPQ nextGen = new MaxPQ();
-        int aliveNum = Math.max(Math.min((int) Math.round(population.N * fitnessRate), 10000),5000);
-        int count = 0;
+        int aliveNum = Math.max(Math.min((int) Math.round(nextGeneration.N * fitnessRate), 8000), 5000);
+        population = new MaxPQ();
+        //select sukodus to population
         while (aliveNum-- > 0) {
-            //if (population.getMax().score()>0) count++;
-            nextGen.insert(population.delMax());
+            population.insert(nextGeneration.delMax());
         }
-        //System.out.println(count);
-        population = nextGen;
     }
 
-    private void printMax() {
+    public void printMax(int curgeneration) {
         Sudoku s = population.getMax();
-        System.out.println("Score: "+s.score());
+        System.out.println("Generation: " + curgeneration + " Population: " + population.N + " Score: " + s.score());
         for (int[] row : s.codeExpression()) {
+            System.out.print("      ");
             for (int i : row) System.out.print(i);
             System.out.println();
         }
@@ -158,22 +145,31 @@ public class GA {
 
 
     public void go() {
-        Random r = new Random();
         initGeneration();
         int curgeneration = 0;
-        //printMax();
+        System.out.println(population.N);
         while (curgeneration++ < generation) {
             int k = population.N;
+            nextGeneration = new MaxPQ();
 
-
-            for (int i = 0; i < k * Math.log(k); i++) crossover();
-            mutation();
+            //crossover
+            for (int i = 0; i < k * Math.log(k); i++) {
+                int[] code1 = population.pq.get(r.nextInt(k) + 1).code;
+                int[] code2 = population.pq.get(r.nextInt(k) + 1).code;
+                crossover(code1, code2);
+            }
+            //mutation
+            for (int i = 0; i < k * mutationRate; i++) {
+                int[] code = population.pq.get(r.nextInt(k) + 1).code;
+                mutation(code);
+            }
+            //select
             double fitnessRate = r.nextDouble() * (fitnessRateUpperBound - fitnessRateLowerBound) + fitnessRateLowerBound;
-            System.out.println("Generation: "+curgeneration + "  N: "+population.N);
             select(fitnessRate);
-//            if (population.getMax().score()>0) System.out.println(population.getMax().score());
-                printMax();
+            //print
+            //printMax(curgeneration);
         }
+        printMax(curgeneration);
     }
 
 }
