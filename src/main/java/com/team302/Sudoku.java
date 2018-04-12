@@ -31,6 +31,14 @@ public class Sudoku {
         this.score = score;
     }
 
+    public int[] getCode() {
+        return code;
+    }
+
+    public void setCode(int[] code) {
+        this.code = code;
+    }
+
     public int fitness() {
         int tot = 144;
         int[][] s = codeExpression();
