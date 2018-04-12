@@ -1,5 +1,7 @@
 package com.team302;
 
+import java.util.Arrays;
+
 public class Sudoku {
     public int[] code;
     private int fitness;
@@ -54,11 +56,9 @@ public class Sudoku {
     }
 
     public int score() {
-        if (fitness < 144) {
-            return 0;
-        }
+        if (fitness < 144) return 0;
+        if (score > 0) return score;
         int[][] s = codeExpression();
-        score = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (Math.max(Math.abs(i - 4), Math.abs(j - 4)) == 4) {
@@ -74,7 +74,12 @@ public class Sudoku {
                 }
             }
         }
-
         return score;
+    }
+
+    public long hashcode() {
+        long hashcode = 1;
+        for (int i : code) hashcode = (hashcode * 31 + i);
+        return hashcode;
     }
 }

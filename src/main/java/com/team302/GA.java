@@ -4,10 +4,11 @@ import java.util.Random;
 
 public class GA {
 
-    private final static int initPopulation = 1000;
+    private final static int initPopulation = 10000;
     private final static int generation = 100;
-    private final static double fitnessRate = 0.1;
-    private final static double mutationRate = 0.3;
+    private final static double fitnessRateUpperBound = 0.045;
+    private final static double fitnessRateLowerBound = 0.028;
+    private final static double mutationRate = 0.8;
 
 
     private MaxPQ population = new MaxPQ();
@@ -134,19 +135,21 @@ public class GA {
         }
     }
 
-    private void select() {
+    private void select(double fitnessRate) {
         MaxPQ nextGen = new MaxPQ();
-        int aliveNum = Math.min((int) Math.round(population.N * fitnessRate),10000);
+        int aliveNum = Math.max(Math.min((int) Math.round(population.N * fitnessRate), 10000),5000);
+        int count = 0;
         while (aliveNum-- > 0) {
-            //System.out.print(population.getMax().score());
+            //if (population.getMax().score()>0) count++;
             nextGen.insert(population.delMax());
         }
+        //System.out.println(count);
         population = nextGen;
     }
 
     private void printMax() {
         Sudoku s = population.getMax();
-        System.out.println(s.fitness()+" "+s.score());
+        System.out.println("Score: "+s.score());
         for (int[] row : s.codeExpression()) {
             for (int i : row) System.out.print(i);
             System.out.println();
@@ -155,20 +158,21 @@ public class GA {
 
 
     public void go() {
+        Random r = new Random();
         initGeneration();
         int curgeneration = 0;
         //printMax();
         while (curgeneration++ < generation) {
             int k = population.N;
-            System.out.print(curgeneration+" ");
-            //System.out.println("A:" + population.N);
+
+
             for (int i = 0; i < k * Math.log(k); i++) crossover();
-            //System.out.println("B:" + population.N);
             mutation();
-            //System.out.println("C:" + population.N);
-            select();
-            //System.out.println("D:" + population.N);
-            printMax();
+            double fitnessRate = r.nextDouble() * (fitnessRateUpperBound - fitnessRateLowerBound) + fitnessRateLowerBound;
+            System.out.println("Generation: "+curgeneration + "  N: "+population.N);
+            select(fitnessRate);
+//            if (population.getMax().score()>0) System.out.println(population.getMax().score());
+                printMax();
         }
     }
 
