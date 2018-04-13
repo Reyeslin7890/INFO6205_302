@@ -1,6 +1,6 @@
 package com.team302;
 
-import UI.Chart;
+import UI.ShowJFrame;
 
 public class Main {
 
@@ -73,7 +73,7 @@ public class Main {
 
     public static void main(String[] args) {
         init();
-        Chart chart = new Chart();
-        new GA(chart).go();
+        ShowJFrame frame = new ShowJFrame();
+        new GA(frame).go();
     }
 }

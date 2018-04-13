@@ -1,30 +1,35 @@
 package UI;
-import java.awt.Color;
-import java.awt.Font;
+
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.util.PublicCloneable;
+
+import javax.swing.*;
 import java.awt.*;
 
-public class Chart {
+public class ShowJFrame {
 
-    public  StandardChartTheme mChartTheme;
+    //public Chart chart;
+    public JTextArea text;
+    public StandardChartTheme mChartTheme;
     public DefaultCategoryDataset mDataset;
     public CategoryDataset dataset;
     public JFreeChart mChart;
 
-    public Chart() {
+    public ShowJFrame(){
+        text = new JTextArea();
+
         mChartTheme = new StandardChartTheme("CN");
         mChartTheme.setLargeFont(new Font("黑体",Font.BOLD, 20));
         mChartTheme.setExtraLargeFont(new Font("宋体", Font.PLAIN, 15));
         mChartTheme.setRegularFont(new Font("宋体", Font.PLAIN, 15));
         ChartFactory.setChartTheme(mChartTheme);
+        mDataset = new DefaultCategoryDataset();
         dataset = mDataset;
         mChart = ChartFactory.createLineChart(
                 "GA",//图名字
@@ -41,38 +46,26 @@ public class Chart {
         mPlot.setRangeGridlinePaint(Color.BLUE);//背景底部横虚线
         mPlot.setOutlinePaint(Color.RED);//边界线
 
-        ChartFrame mChartFrame = new ChartFrame("折线图", mChart);
-        mChartFrame.pack();
-        mChartFrame.setVisible(true);
-    }
+        JFrame frame = new JFrame();
+        frame.setLayout(new FlowLayout());
+        ChartPanel chartPanel = new ChartPanel(mChart);
+        frame.add(chartPanel);
+        JPanel textPanel = new JPanel();
+        textPanel.add(text);
+        frame.add(textPanel);
 
-    public static CategoryDataset GetDataset()
-    {
-        DefaultCategoryDataset mDataset = new DefaultCategoryDataset();
-        mDataset.addValue(1, "First", "2013");
-        mDataset.addValue(3, "First", "2014");
-        mDataset.addValue(2, "First", "2015");
-        mDataset.addValue(6, "First", "2016");
-        mDataset.addValue(5, "First", "2017");
-        mDataset.addValue(12, "First", "2018");
-        mDataset.addValue(14, "Second", "2013");
-        mDataset.addValue(13, "Second", "2014");
-        mDataset.addValue(12, "Second", "2015");
-        mDataset.addValue(9, "Second", "2016");
-        mDataset.addValue(5, "Second", "2017");
-        mDataset.addValue(7, "Second", "2018");
-        return mDataset;
+        frame.pack();
+        frame.setVisible(true);
+//        ChartFrame mChartFrame = new ChartFrame("折线图", mChart);
+//        mChartFrame.pack();
+//        mChartFrame.setVisible(true);
     }
 
     public void refresh(int curgeneration, int fitness, int score){
         CategoryPlot plot = (CategoryPlot)mChart.getPlot();
-        System.out.println(curgeneration);
-        System.out.println(fitness);
-        System.out.println(score);
-        mDataset.addValue((Integer)fitness, "Fitness", Integer.valueOf(curgeneration));
+        mDataset.addValue(fitness, "Fitness", String.valueOf(curgeneration));
         mDataset.addValue(score, "Score", String.valueOf(curgeneration));
         dataset = mDataset;
         plot.setDataset(dataset);
     }
-
 }

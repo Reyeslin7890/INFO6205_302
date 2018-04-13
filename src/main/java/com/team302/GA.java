@@ -1,6 +1,6 @@
 package com.team302;
 
-import UI.Chart;
+import UI.ShowJFrame;
 
 import java.util.Random;
 
@@ -17,10 +17,10 @@ public class GA {
     public MaxPQ population = new MaxPQ();
     public MaxPQ nextGeneration = new MaxPQ();
 
-    public Chart chart;
+    public ShowJFrame frame;
 
-    public GA(Chart chart) {
-        this.chart = chart;
+    public GA(ShowJFrame frame) {
+        this.frame = frame;
     }
 
     public void initGeneration() {
@@ -140,7 +140,7 @@ public class GA {
 
     public void printMax(int curgeneration) {
         Sudoku s = population.getMax();
-        System.out.println("Generation: " + curgeneration + " Population: " + population.N + "Fitness: " + s.fitness() + " Score: " + s.score());
+        System.out.println("Generation: " + curgeneration + " Population: " + population.N + " Fitness: " + s.fitness() + " Score: " + s.score());
         for (int[] row : s.codeExpression()) {
             System.out.print("      ");
             for (int i : row) System.out.print(i);
@@ -148,6 +148,17 @@ public class GA {
         }
     }
 
+    public String maxText(int curgeneration){
+        Sudoku s = population.getMax();
+        String text = "Generation: " + curgeneration + " Population: " + population.N + " Fitness: " + s.fitness() + " Score: " + s.score() + "\n";
+
+        for (int[] row : s.codeExpression()) {
+            text = text + "      ";
+            for (int i : row) text = text + i;
+            text = text + "\n";
+        }
+        return text;
+    }
 
     public void go() {
         initGeneration();
@@ -175,7 +186,8 @@ public class GA {
             printMax(curgeneration);
 
             Sudoku s = population.getMax();
-            chart.refresh(curgeneration,s.fitness(),s.score());
+            frame.refresh(curgeneration,s.fitness(),s.score());
+            frame.text.setText(maxText(curgeneration));
         }
         //printMax(curgeneration);
     }
