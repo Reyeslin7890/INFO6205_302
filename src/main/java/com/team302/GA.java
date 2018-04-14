@@ -2,6 +2,7 @@ package com.team302;
 
 import UI.ShowJFrame;
 
+import javax.swing.table.DefaultTableModel;
 import java.util.Random;
 
 public class GA {
@@ -170,6 +171,16 @@ public class GA {
         return text;
     }
 
+    public void maxTable(Sudoku s){
+        frame.dtm = (DefaultTableModel)frame.table.getModel();
+        frame.dtm.setRowCount(0);
+        for(int i = 0; i < 9; i++){
+            Object row[] = new Object[9];
+            row[i] = s.codeExpression()[i];
+            frame.dtm.addRow(row);
+        }
+    }
+
     public Sudoku go() {
 //        initGeneration();
         int curgeneration = 0;
@@ -194,6 +205,7 @@ public class GA {
             Sudoku s = population.getMax();
             frame.refresh(curgeneration, s.fitness(), s.score());
             frame.text.setText(maxText(curgeneration));
+            maxTable(s);
 
         }
 

@@ -10,6 +10,7 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class ShowJFrame {
@@ -21,10 +22,31 @@ public class ShowJFrame {
     public CategoryDataset dataset;
     public JFreeChart mChart;
     public JTextField field;
+    public JTable table;
+    public DefaultTableModel dtm;
 
     public ShowJFrame(){
         text = new JTextArea();
         field = new JTextField();
+        table = new JTable();
+        table.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+//                        "Serial Number", "Departure Time", "Arrival Time"
+                }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        dtm = (DefaultTableModel)table.getModel();
+        dtm.setRowCount(0);
 
         mChartTheme = new StandardChartTheme("CN");
         mChartTheme.setLargeFont(new Font("黑体",Font.BOLD, 20));
@@ -59,6 +81,9 @@ public class ShowJFrame {
         fieldPanel.add(field);
         field.setText("");
         frame.add(fieldPanel);
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(table);
+        frame.add(tablePanel);
 
         frame.pack();
         frame.setVisible(true);
