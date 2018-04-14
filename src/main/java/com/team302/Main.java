@@ -2,6 +2,8 @@ package com.team302;
 
 import UI.ShowJFrame;
 
+import java.util.concurrent.CompletableFuture;
+
 public class Main {
 
 //    public static final int[][] skd =
@@ -73,7 +75,11 @@ public class Main {
 
     public static void main(String[] args) {
         init();
-        ShowJFrame frame = new ShowJFrame();
-        new GA(frame).go();
+//        ShowJFrame frame1 = new ShowJFrame();
+//        ShowJFrame frame2 = new ShowJFrame();
+//        Sudoku s1 = new GA(frame1).go();
+//        Sudoku s2 = new GA(frame2).go();
+        ParGA parGA = new ParGA();
+        parGA.go();
     }
 }

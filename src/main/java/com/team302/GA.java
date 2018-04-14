@@ -160,7 +160,7 @@ public class GA {
         return text;
     }
 
-    public void go() {
+    public Sudoku go() {
         initGeneration();
         int curgeneration = 0;
         System.out.println(population.N);
@@ -190,6 +190,7 @@ public class GA {
             frame.text.setText(maxText(curgeneration));
         }
         //printMax(curgeneration);
+        return population.getMax();
     }
 
 }

@@ -20,6 +20,7 @@ public class ShowJFrame {
     public DefaultCategoryDataset mDataset;
     public CategoryDataset dataset;
     public JFreeChart mChart;
+    public JTextField field;
 
     public ShowJFrame(){
         text = new JTextArea();
@@ -53,6 +54,9 @@ public class ShowJFrame {
         JPanel textPanel = new JPanel();
         textPanel.add(text);
         frame.add(textPanel);
+        field = new JTextField();
+        field.setText("");
+        frame.add(field);
 
         frame.pack();
         frame.setVisible(true);
