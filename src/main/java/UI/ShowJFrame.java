@@ -56,6 +56,7 @@ public class ShowJFrame {
         textPanel.add(text);
         frame.add(textPanel);
         JPanel fieldPanel = new JPanel();
+        fieldPanel.add(field);
         field.setText("");
         frame.add(fieldPanel);
 
