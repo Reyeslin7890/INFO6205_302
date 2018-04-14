@@ -35,6 +35,7 @@ public class ShowJFrame {
                 },
                 new String [] {
 //                        "Serial Number", "Departure Time", "Arrival Time"
+                        "1","2","3","4","5","6","7","8","9"
                 }
         ) {
             boolean[] canEdit = new boolean [] {

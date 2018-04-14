@@ -174,9 +174,14 @@ public class GA {
     public void maxTable(Sudoku s){
         frame.dtm = (DefaultTableModel)frame.table.getModel();
         frame.dtm.setRowCount(0);
+        int[][] max = s.codeExpression();
         for(int i = 0; i < 9; i++){
             Object row[] = new Object[9];
-            row[i] = s.codeExpression()[i];
+            for(int j = 0; j < 9; j++){
+                row[j] = max[i][j];
+                System.out.println(row[j]);
+            }
+            System.out.println("123456");
             frame.dtm.addRow(row);
         }
     }
