@@ -24,6 +24,7 @@ public class ShowJFrame {
 
     public ShowJFrame(){
         text = new JTextArea();
+        field = new JTextField();
 
         mChartTheme = new StandardChartTheme("CN");
         mChartTheme.setLargeFont(new Font("黑体",Font.BOLD, 20));
@@ -54,9 +55,9 @@ public class ShowJFrame {
         JPanel textPanel = new JPanel();
         textPanel.add(text);
         frame.add(textPanel);
-        field = new JTextField();
+        JPanel fieldPanel = new JPanel();
         field.setText("");
-        frame.add(field);
+        frame.add(fieldPanel);
 
         frame.pack();
         frame.setVisible(true);
