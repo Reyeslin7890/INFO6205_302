@@ -75,7 +75,7 @@ public class Sudoku {
         return s;
     }
 
-    public int score() {
+    public double score() {
         if (fitness() < 144) return 0;
         if (score > 0) return score;
         int[][] s = codeExpression();
@@ -96,6 +96,22 @@ public class Sudoku {
         }
         score = score - 2700;
         return score;
+    }
+
+    public boolean validate(){
+        int[][] phenotype = codeExpression();
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++){
+                boolean[] check = new boolean[10];
+                for (int a = 0; a < 3; a++)
+                    for (int b = 0; b < 3; b++) {
+                        int row = i * 3 + a;
+                        int col = j * 3 + b;
+                        if (check[phenotype[row][col]]) return false;
+                        check[phenotype[row][col]] = true;
+                    }
+        }
+        return true;
     }
 
     public long hashcode() {

@@ -6,10 +6,12 @@ import java.util.Random;
 
 public class GA {
 
-    private final static int initPopulation = 8000;
+    private final static int initPopulation = 10000;
     private final static int generation = 100;
     private final static double fitnessRateUpperBound = 0.08;
     private final static double fitnessRateLowerBound = 0.03;
+    private final static int populationUB = 6000;
+    private final static int populationLB = 3000;
     private final static double mutationRate = 0.5;
     private Random r = new Random();
 
@@ -23,6 +25,9 @@ public class GA {
         this.frame = frame;
     }
 
+    public GA() {
+    }
+
     public void initGeneration() {
         for (int num = 0; num < initPopulation; num++) {
             Sudoku s = new Sudoku();
@@ -31,21 +36,24 @@ public class GA {
                 //Shuffle code fragment
                 for (int i = 0; i < frag.length; i++) {
                     int j = r.nextInt(frag.length);
-                    int swap = frag[i];
-                    frag[i] = frag[j];
-                    frag[j] = swap;
+                        int swap = frag[i];
+                        frag[i] = frag[j];
+                        frag[j] = swap;
+
                 }
                 for (int aFrag : frag) s.code[ind++] = aFrag;
             }
             s.fitness();
-            population.insert(s);
+            if (s.validate()) population.insert(s);
         }
+        //System.out.println(population.N);
 
     }
 
 
     public void crossover(int[] code1, int[] code2) {
         // Get 2 gene codes from population to crossover
+        if (code1.hashCode() == code2.hashCode()) return;
         int[] code3 = new int[Sudoku.unused];
         int[] code4 = new int[Sudoku.unused];
 
@@ -112,6 +120,7 @@ public class GA {
 
     public void mutation(int[] code) {
         Sudoku s = new Sudoku();
+
         s.code = code.clone();
         int mutFrag = r.nextInt(9);
         int v = r.nextInt(Sudoku.codeFrag[mutFrag].length) + Sudoku.index[mutFrag];
@@ -129,11 +138,12 @@ public class GA {
         while (population.N > 0) {
             nextGeneration.insert(population.delMax());
         }
-
-        int aliveNum = Math.max(Math.min((int) Math.round(nextGeneration.N * fitnessRate), 8000), 5000);
+        int aliveNum = nextGeneration.N;
+        if (aliveNum > 20000)
+            aliveNum = Math.max(Math.min((int) Math.round(nextGeneration.N * fitnessRate), populationUB), populationLB);
         population = new MaxPQ();
         //select sukodus to population
-        while (aliveNum-- > 0) {
+        while (aliveNum-- > 0 && nextGeneration.N > 0) {
             population.insert(nextGeneration.delMax());
         }
     }
@@ -148,7 +158,7 @@ public class GA {
         }
     }
 
-    public String maxText(int curgeneration){
+    public String maxText(int curgeneration) {
         Sudoku s = population.getMax();
         String text = "Generation: " + curgeneration + " Population: " + population.N + " Fitness: " + s.fitness() + " Score: " + s.score() + "\n";
 
@@ -161,15 +171,13 @@ public class GA {
     }
 
     public Sudoku go() {
-        initGeneration();
+//        initGeneration();
         int curgeneration = 0;
-        System.out.println(population.N);
         while (curgeneration++ < generation) {
             int k = population.N;
             nextGeneration = new MaxPQ();
-
             //crossover
-            for (int i = 0; i < k * Math.log(k); i++) {
+            for (int i = 0; i < k * Math.log(k)+1; i++) {
                 int[] code1 = population.pq.get(r.nextInt(k) + 1).code;
                 int[] code2 = population.pq.get(r.nextInt(k) + 1).code;
                 crossover(code1, code2);
@@ -182,14 +190,13 @@ public class GA {
             //select
             double fitnessRate = r.nextDouble() * (fitnessRateUpperBound - fitnessRateLowerBound) + fitnessRateLowerBound;
             select(fitnessRate);
-            //print
-            printMax(curgeneration);
 
             Sudoku s = population.getMax();
-            frame.refresh(curgeneration,s.fitness(),s.score());
+            frame.refresh(curgeneration, s.fitness(), s.score());
             frame.text.setText(maxText(curgeneration));
+
         }
-        //printMax(curgeneration);
+
         return population.getMax();
     }
 

@@ -66,7 +66,7 @@ public class ShowJFrame {
 //        mChartFrame.setVisible(true);
     }
 
-    public void refresh(int curgeneration, int fitness, int score){
+    public void refresh(int curgeneration, int fitness, double score){
         CategoryPlot plot = (CategoryPlot)mChart.getPlot();
         mDataset.addValue(fitness, "Fitness", String.valueOf(curgeneration));
         mDataset.addValue(score, "Score", String.valueOf(curgeneration));

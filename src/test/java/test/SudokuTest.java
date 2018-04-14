@@ -24,7 +24,7 @@ public class SudokuTest {
     public void test2(){
         Sudoku s = new Sudoku();
         s.setCode(new int[]{6,8,1,5,3,2,9,4,1,3,6,6,7,2,8,9,8,6,2,4,2,6,1,4,3,7,3,4,9,6,4,2,9,3,8,5,1,7,3,5,7,8,2,4,5,8,7,2,4,3,9});
-        assertEquals(2849,s.score());
+        assertEquals(120,s.score());
 
         Sudoku sudoku = new Sudoku();
         sudoku.setCode(new int[]{8,1,6,5,2,3,9,4,1,3,6,6,7,2,8,9,6,8,4,2,2,6,1,3,4,7,3,4,9,6,5,2,9,4,7,3,8,1,8,5,7,3,2,4,3,7,4,2,8,5,9});

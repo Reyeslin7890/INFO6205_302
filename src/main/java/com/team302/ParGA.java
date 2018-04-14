@@ -22,11 +22,13 @@ public class ParGA {
     }
 
     public void go(){
+        ga1.initGeneration();
+        ga2.initGeneration();
         CompletableFuture<Sudoku> c1 = doGA(ga1);
         CompletableFuture<Sudoku> c2 = doGA(ga2);
         CompletableFuture<Integer> c = c1.
                 thenCombine(c2, (xs1, xs2) -> {
-                    Integer result;
+                    int result;
                     if(xs1.score() > xs2.score()){
                         result = 1;
                     }
@@ -34,7 +36,6 @@ public class ParGA {
                         result = 2;
                     }
                     else result = 0;
-
                     return result;
                 });
 
@@ -51,7 +52,6 @@ public class ParGA {
                     frame2.field.setText("Same");
                     break;
             }
-
         });
     }
 
