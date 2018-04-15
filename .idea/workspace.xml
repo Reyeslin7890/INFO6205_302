@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1d24c14-8c23-4c6b-a5c7-65a1057cbe9a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/INFO6205_302.docx" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/algorithm-final.iml" afterPath="$PROJECT_DIR$/INFO6205_302.iml" />
+      <change beforePath="$PROJECT_DIR$/Report.docx" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -582,7 +581,7 @@
       <updated>1523637651484</updated>
       <workItem from="1523637680784" duration="4813000" />
       <workItem from="1523727829305" duration="6921000" />
-      <workItem from="1523757397412" duration="713000" />
+      <workItem from="1523757397412" duration="783000" />
     </task>
     <task id="LOCAL-00003" summary="parGA">
       <created>1523676628447</created>
@@ -605,7 +604,14 @@
       <option name="project" value="LOCAL" />
       <updated>1523741492580</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="name">
+      <created>1523761088716</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1523761088716</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -641,7 +647,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45925000" />
+    <option name="totallyTimeSpent" value="45995000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1775" y="203" width="1243" height="735" extended-state="0" />
@@ -722,7 +728,8 @@
     <MESSAGE value="chart" />
     <MESSAGE value="parGA" />
     <MESSAGE value="better" />
-    <option name="LAST_COMMIT_MESSAGE" value="better" />
+    <MESSAGE value="name" />
+    <option name="LAST_COMMIT_MESSAGE" value="name" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
