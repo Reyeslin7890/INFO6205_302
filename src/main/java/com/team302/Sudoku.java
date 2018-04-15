@@ -75,7 +75,7 @@ public class Sudoku {
         return s;
     }
 
-    public double score() {
+    public int score() {
         if (fitness() < 144) return 0;
         if (score > 0) return score;
         int[][] s = codeExpression();

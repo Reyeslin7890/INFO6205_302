@@ -47,7 +47,6 @@ public class GA {
             s.fitness();
             if (s.validate()) population.insert(s);
         }
-        //System.out.println(population.N);
 
     }
 
@@ -179,9 +178,7 @@ public class GA {
             Object row[] = new Object[9];
             for(int j = 0; j < 9; j++){
                 row[j] = max[i][j];
-                System.out.println(row[j]);
             }
-            System.out.println("123456");
             frame.dtm.addRow(row);
         }
     }
