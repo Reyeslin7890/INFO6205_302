@@ -142,7 +142,7 @@ public class GA {
         if (aliveNum > 20000)
             aliveNum = Math.max(Math.min((int) Math.round(nextGeneration.N * fitnessRate), populationUB), populationLB);
         population = new MaxPQ();
-        //select sukodus to population
+        //select sudokus to population
         while (aliveNum-- > 0 && nextGeneration.N > 0) {
             population.insert(nextGeneration.delMax());
         }

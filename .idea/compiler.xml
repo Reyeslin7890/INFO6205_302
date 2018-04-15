@@ -7,10 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="algorithm-final" />
+        <module name="INFO6205_302" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="algorithm-final" target="1.5" />
+      <module name="INFO6205_302" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
